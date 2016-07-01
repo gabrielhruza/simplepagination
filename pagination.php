@@ -1,3 +1,5 @@
+Función que debes agregar entre las funciones del controlador que quieras hacer paginación!
+
 /**
      * Lists all Turnos entities.
      *
@@ -11,13 +13,13 @@
         //$turnoPars = $em->getRepository('AppBundle:TurnoPar')->findAll();
         $turnoPars = $this->getUser()->getTurnos();
 
-        $range = 6;
-        $pages = count($turnoPars) / $range;
-        //die(var_dump($turnoPars));
-        $turnoPars  = $turnoPars->slice($page*$range,$range);
-        //$turnoPars  = array_slice($turnoPars,$page*$range,$range);
+        $range = 6; //Cantidad de elementos que quieras mostrar por página
+        $pages = count($turnoPars) / $range; //Calcula la cantidad total de páginas
+        
+        $turnoPars  = $turnoPars->slice($page*$range,$range); //Si es un ArrayCollection() de Doctrine
+        //$turnoPars  = array_slice($turnoPars,$page*$range,$range); //Si es un array() de php
 
-        return $this->render('turnopar/indexcompleto.html.twig', array(
+        return $this->render('turnopar/indexcompleto.html.twig', array( //plantilla donde quieres colocar el paginador
             'turnoPars' => $turnoPars,
             'range' => $range,
             'pages' => $pages,
@@ -26,7 +28,7 @@
     }
 
 
-
+//Debes agregar el html correspondiente donde quieras que aparezca el paginador
  <nav class="text-center">
       <ul class="pagination">
         <li>  
